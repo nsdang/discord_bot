@@ -1,0 +1,32 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "Create personal Discord bot",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsdang/discord_bot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "node"
+  ],
+  "author": "\"Dan_Nguyen \\ <dangns229@gmail.com\\> (https://github.com/nsdang)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nsdang/discord_bot/issues"
+  },
+  "homepage": "https://github.com/nsdang/discord_bot#readme",
+  "dependencies": {
+    "discord.js": "^12.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.0"
+  }
+}
