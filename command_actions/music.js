@@ -1,11 +1,12 @@
+
 import ytdl from "ytdl-core";
+import Discord from "discord.js";
 
 async function execute(msg, queue, serverQueue) {
   const args = msg.content.split(" ");
   const voiceChannel = msg.member.voice.channel;
-  
-  if (!args[1])
-    return msg.channel.send("Please provide a link");
+
+  if (!args[1]) return msg.channel.send("Please provide a link");
   if (!voiceChannel)
     return msg.channel.send("You need to be in a voice channel to play music!");
   const permissions = voiceChannel.permissionsFor(msg.client.user);
@@ -77,15 +78,11 @@ function play(guild, queue, song) {
     return;
   }
 
-//   var dispatcher = serverQueue.connection.playStream(ytdl(song.url, {filter: "audioonly"}));
-//   serverQueue.songs.shift();
-//   dispatcher = 
-
   const dispatcher = serverQueue.connection
     .play(ytdl(song.url))
     .on("finish", () => {
       serverQueue.songs.shift();
-      play(guild, serverQueue.songs[0]);
+      play(guild, queue, serverQueue.songs[0]);
     })
     .on("error", (error) => console.error(error));
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
@@ -93,7 +90,24 @@ function play(guild, queue, song) {
 }
 
 function print_queue(msg, serverQueue) {
-  console.log(serverQueue);
+  var message = "";
+  var i = 1;
+  if (!serverQueue) message += `**Empty**`;
+  else {
+    for (var song of serverQueue.songs) {
+      message += `\n${i}.\t**${song.title}**`;
+      i++;
+    }
+  }
+  const embed = new Discord.MessageEmbed()
+    // Set the title of the field
+    .setTitle("Song Queue: ")
+    // Set the color of the embed
+    .setColor(0xff0000)
+    // Set the main content of the embed
+    .setDescription(message);
+  // Send the embed to the same channel as the message
+  return msg.channel.send(embed);
 }
 
 export { execute, skip, stop, print_queue };

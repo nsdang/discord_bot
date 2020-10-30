@@ -1,13 +1,14 @@
 import Discord from "discord.js";
 import {execute, skip, stop, print_queue} from "./command_actions/music.js";
 import { createRequire } from 'module'
+import {new_mem_greeting, hello_greeting, image_greeting} from "./command_actions/server_greeting.js"
+
 
 const require = createRequire(import.meta.url);
 const config = require("./config.json");
 const client = new Discord.Client();
 
 const queue = new Map();
-var servers = {};
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -22,12 +23,17 @@ client.once("disconnect", () => {
 });
 
 client.on("message", (msg) => {
-  if (msg.content === "hello fun4ever") {
+  if (msg.author.bot) return;
+  if (!msg.content.startsWith(config.prefix)) return;
+  
+  if (msg.content ===`${config.prefix}hello`) {
     msg.reply("hello onichan!");
   }
 
-  if (msg.author.bot) return;
-  if (!msg.content.startsWith(config.prefix)) return;
+  if (msg.content.startsWith === `${config.prefix}image`) {
+    image_greeting(msg, storage)
+    return;
+  }
 
   const serverQueue = queue.get(msg.guild.id);
 
