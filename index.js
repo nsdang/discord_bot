@@ -53,18 +53,23 @@ client.on("message", (msg) => {
   } else if (msg.content.startsWith(`${config.prefix}queue`)) {
     youtube_cmds.print_queue(msg, serverQueue);
     return;    
-  } else {
-    msg.channel.send("You need to enter a valid command!");
   }
   //#endregion
 
   //#region AI Commands
   if (msg.content.startsWith(`${config.prefix}ai`)) {
-    ai_cmds.send_ai_request(msg);
+    var request = msg.content.slice(`${config.prefix}ai`.length).trim();
+    ai_cmds.send_request(request).then(response => {
+      msg.channel.send(response);
+    }).catch(error => {
+      console.error('Error:', error);
+      msg.channel.send("There was an error processing your request.");
+    });
     return;
   }
   //#endregion
 
+  msg.channel.send("You need to enter a valid command!");
 });
 
 client.login(`${token}`);
