@@ -12,9 +12,6 @@ yarn-error.log*
 .env
 .env.*.local
 
-# Project config (contains secrets)
-config.json
-
 # Local ffmpeg binary (not needed in repo)
 ffmpeg
 
