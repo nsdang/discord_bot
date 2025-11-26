@@ -1,0 +1,35 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*.local
+
+# Project config (contains secrets)
+config.json
+
+# Local ffmpeg binary (not needed in repo)
+ffmpeg
+
+# OS files
+.DS_Store
+
+# Editor directories
+.vscode/
+
+# Build outputs
+dist/
+coverage/
+
+# Private keys & certificates
+*.pem
+*.key
+*.p12
+
